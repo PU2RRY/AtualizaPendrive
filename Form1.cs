@@ -4,8 +4,7 @@ using System.IO;
 namespace Atualiza_Pendrive
 
 
-   //BATATINHA 123
-
+  
 {
     public partial class Form1 : Form
     {
