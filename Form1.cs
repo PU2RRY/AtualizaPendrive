@@ -2,15 +2,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 namespace Atualiza_Pendrive
-
-
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
 {
     public partial class Form1 : Form
     {
@@ -34,7 +25,6 @@ namespace Atualiza_Pendrive
                 }
             }
         }
-
         private void button2_Click_1(object sender, EventArgs e)
         {
             // Define os valores mínimos e máximos para a barra de progresso
@@ -93,9 +83,7 @@ namespace Atualiza_Pendrive
                     progressBar1.Value += 1;
                     label2.Text = "Copiando : " + fi.Name;
                 }));
-
                 if (!File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
-
                 {
                     // Compara se for diferente copia 
                     if (File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
@@ -114,23 +102,19 @@ namespace Atualiza_Pendrive
                     }
                 }
             }
-
            // Copia as subpastas da pasta de origem para a pasta de destino
            foreach (DirectoryInfo di in diSource.GetDirectories())
            {
                CopyDirectory(di.FullName, Path.Combine(diTarget.FullName, di.Name));
            }
         }
-
         private void UpdateProgress(object sender, ProgressChangedEventArgs e)
         {
             // Atualiza o valor da barra de progresso
             progressBar1.Value = e.ProgressPercentage;
         }
-
         private void progressBar1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
