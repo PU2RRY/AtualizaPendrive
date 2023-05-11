@@ -2,6 +2,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 namespace Atualiza_Pendrive
+
+
+   //BATATINHA 123
+
 {
     public partial class Form1 : Form
     {
@@ -28,10 +32,6 @@ namespace Atualiza_Pendrive
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-      
-
-      
-
             // Define os valores mínimos e máximos para a barra de progresso
             progressBar1.Minimum = 0;
             totalArquivos = ContaArquivos(ORIGEM);
@@ -92,6 +92,7 @@ namespace Atualiza_Pendrive
                 if (!File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
 
                 {
+                    // Compara se for diferente copia 
                     if (File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
                     {
                         var versaoOrigem = FileVersionInfo.GetVersionInfo(fi.FullName).FileVersion;
@@ -101,6 +102,7 @@ namespace Atualiza_Pendrive
                             fi.CopyTo(Path.Combine(diTarget.FullName, fi.Name), true);
                         }
                     }
+                    // se não existir só copia
                     else
                     {
                         fi.CopyTo(Path.Combine(diTarget.FullName, fi.Name), true);
