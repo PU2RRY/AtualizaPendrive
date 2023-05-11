@@ -11,8 +11,6 @@ namespace Atualiza_Pendrive
         {
             InitializeComponent();
         }
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dirDialog = new FolderBrowserDialog())
@@ -28,9 +26,7 @@ namespace Atualiza_Pendrive
             }
         }
         private void button2_Click_1(object sender, EventArgs e)
-        {
-      
-
+        {     
             // Define os valores mínimos e máximos para a barra de progresso
             progressBar1.Minimum = 0;
             totalArquivos = ContaArquivos(ORIGEM);
@@ -45,12 +41,11 @@ namespace Atualiza_Pendrive
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
-
+            // Pega o destino que o Usuario selecionol 
             string destino = textBox1.Text;
           
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
-
 
             // Atualiza o progresso para 100%
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -60,16 +55,16 @@ namespace Atualiza_Pendrive
         }
         public int ContaArquivos(string sourceDir)
         {
+            
             DirectoryInfo diSource = new(sourceDir);
             int files = diSource.GetFiles().Length;
-
+            // Conta quantos arquivos tem dentro de cada pasta para colocar no maximo da progresBar 
             foreach (DirectoryInfo di in diSource.GetDirectories())
                 files += ContaArquivos(di.FullName);
 
             return files;
         }
-
-            public void CopyDirectory(string sourceDir, string targetDir)
+        public void CopyDirectory(string sourceDir, string targetDir)
         {
             DirectoryInfo diSource = new DirectoryInfo(sourceDir);
             DirectoryInfo diTarget = new DirectoryInfo(targetDir);
@@ -83,7 +78,7 @@ namespace Atualiza_Pendrive
             // Copia os arquivos da pasta de origem para a pasta de destino
             foreach (FileInfo fi in diSource.GetFiles())
             {
-
+                //Invoca a thred de copia que esta rodando em back
                 Invoke(new Action(() =>
                 {
                     progressBar1.Value += 1;
