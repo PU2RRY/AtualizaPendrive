@@ -6,11 +6,8 @@ namespace Atualiza_Pendrive
 
 //BATATINHA 123
 //BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
-//BATATINHA 123
+
+    //ONION RINGS ++
 {
     public partial class Form1 : Form
     {
