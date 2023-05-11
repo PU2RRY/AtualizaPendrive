@@ -12,7 +12,6 @@ namespace Atualiza_Pendrive
             InitializeComponent();
         }
 
-
         private void button1_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dirDialog = new FolderBrowserDialog())
@@ -27,10 +26,9 @@ namespace Atualiza_Pendrive
                 }
             }
         }
+
         private void button2_Click_1(object sender, EventArgs e)
         {
-      
-
             // Define os valores mínimos e máximos para a barra de progresso
             progressBar1.Minimum = 0;
             totalArquivos = ContaArquivos(ORIGEM);
@@ -51,7 +49,6 @@ namespace Atualiza_Pendrive
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
 
-
             // Atualiza o progresso para 100%
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(totalArquivos);
@@ -69,7 +66,7 @@ namespace Atualiza_Pendrive
             return files;
         }
 
-            public void CopyDirectory(string sourceDir, string targetDir)
+        public void CopyDirectory(string sourceDir, string targetDir)
         {
             DirectoryInfo diSource = new DirectoryInfo(sourceDir);
             DirectoryInfo diTarget = new DirectoryInfo(targetDir);
@@ -89,6 +86,7 @@ namespace Atualiza_Pendrive
                     progressBar1.Value += 1;
                     label2.Text = "Copiando : " + fi.Name;
                 }));
+
                 if (!File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
 
                 {
@@ -108,11 +106,11 @@ namespace Atualiza_Pendrive
                 }
             }
 
-            // Copia as subpastas da pasta de origem para a pasta de destino
-            foreach (DirectoryInfo di in diSource.GetDirectories())
-            {
-                CopyDirectory(di.FullName, Path.Combine(diTarget.FullName, di.Name));
-            }
+           // Copia as subpastas da pasta de origem para a pasta de destino
+           foreach (DirectoryInfo di in diSource.GetDirectories())
+           {
+               CopyDirectory(di.FullName, Path.Combine(diTarget.FullName, di.Name));
+           }
         }
 
         private void UpdateProgress(object sender, ProgressChangedEventArgs e)
