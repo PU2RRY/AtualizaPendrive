@@ -11,8 +11,6 @@ namespace Atualiza_Pendrive
         {
             InitializeComponent();
         }
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dirDialog = new FolderBrowserDialog())
