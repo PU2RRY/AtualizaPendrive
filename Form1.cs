@@ -63,7 +63,7 @@ namespace Atualiza_Pendrive
             DirectoryInfo diSource = new(sourceDir);
             int files = diSource.GetFiles().Length;
             // Conta quantos arquivos tem dentro de cada pasta para colocar no maximo da progresBar 
-        public void CopyDirectory(string sourceDir, string targetDir)
+            public void CopyDirectory(string sourceDir, string targetDir);
 
             return files;
         }
