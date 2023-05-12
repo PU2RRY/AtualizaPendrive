@@ -6,7 +6,7 @@ namespace Atualiza_Pendrive
     public partial class Form1 : Form
     {
         private const string ORIGEM = @"C:\Users\Micro\Documents\DCS";
-        private int totalArquivos; 
+        private int totalArquivos;
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace Atualiza_Pendrive
         }
         private void button2_Click_1(object sender, EventArgs e)
         {
-      
+
 
             // Define os valores mínimos e máximos para a barra de progresso
             progressBar1.Minimum = 0;
@@ -45,7 +45,7 @@ namespace Atualiza_Pendrive
         {
 
             string destino = textBox1.Text;
-          
+
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
 
@@ -67,7 +67,7 @@ namespace Atualiza_Pendrive
             return files;
         }
 
-            public void CopyDirectory(string sourceDir, string targetDir)
+        public void CopyDirectory(string sourceDir, string targetDir)
         {
             DirectoryInfo diSource = new DirectoryInfo(sourceDir);
             DirectoryInfo diTarget = new DirectoryInfo(targetDir);
