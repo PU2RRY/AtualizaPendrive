@@ -35,6 +35,7 @@
             label1 = new Label();
             button2 = new Button();
             label2 = new Label();
+            lbAviso = new Label();
             SuspendLayout();
             // 
             // button1
@@ -54,11 +55,11 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(240, 23);
             textBox1.TabIndex = 1;
-            textBox1.Text = "Selecione a pasta do seu PenDrive       --->";
+            textBox1.Text = "Selecione a pasta no seu PenDrive       --->";
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(6, 65);
+            progressBar1.Location = new Point(6, 85);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(282, 23);
             progressBar1.TabIndex = 2;
@@ -77,9 +78,9 @@
             // 
             // button2
             // 
-            button2.BackColor = Color.DarkOrange;
+            button2.BackColor = Color.DarkGray;
             button2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(6, 115);
+            button2.Location = new Point(6, 135);
             button2.Name = "button2";
             button2.Size = new Size(284, 31);
             button2.TabIndex = 4;
@@ -90,18 +91,31 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 94);
+            label2.Location = new Point(6, 114);
             label2.Name = "label2";
             label2.Size = new Size(16, 15);
             label2.TabIndex = 5;
             label2.Text = "...";
             // 
+            // lbAviso
+            // 
+            lbAviso.AutoSize = true;
+            lbAviso.BackColor = Color.Black;
+            lbAviso.Font = new Font("Verdana", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbAviso.ForeColor = Color.Red;
+            lbAviso.Location = new Point(7, 60);
+            lbAviso.Name = "lbAviso";
+            lbAviso.Size = new Size(285, 14);
+            lbAviso.TabIndex = 6;
+            lbAviso.Text = "Selecione a pasta DCS dentro do Pendrive";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.DarkCyan;
-            ClientSize = new Size(297, 155);
+            BackColor = SystemColors.WindowFrame;
+            ClientSize = new Size(297, 174);
+            Controls.Add(lbAviso);
             Controls.Add(label2);
             Controls.Add(button2);
             Controls.Add(label1);
@@ -125,5 +139,6 @@
         private Label label1;
         private Button button2;
         private Label label2;
+        private Label lbAviso;
     }
 }
