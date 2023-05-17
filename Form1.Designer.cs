@@ -112,7 +112,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Atualiza Pendrive";
             ResumeLayout(false);
             PerformLayout();
         }
