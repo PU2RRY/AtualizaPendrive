@@ -5,7 +5,8 @@ namespace Atualiza_Pendrive
 {
     public partial class Form1 : Form
     {
-        private const string ORIGEM = @"C:\Users\Micro\Documents\DCS";
+        //private const string ORIGEM = @"C:\Users\Micro\Documents\DCS";
+        private const string ORIGEM = @"\\digo\d\DCS";
         private int totalArquivos;
         public Form1()
         {
