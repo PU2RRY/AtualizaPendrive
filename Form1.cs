@@ -5,51 +5,46 @@ namespace Atualiza_Pendrive
 {
     public partial class Form1 : Form
     {
-        //private const string ORIGEM = @"C:\Users\Micro\Documents\DCS";
         private const string ORIGEM = @"\\digo\d\DCS";
         private int totalArquivos;
+        private string pendrive;
+        private string penLetra;
         public Form1()
         {
             InitializeComponent();
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dirDialog = new FolderBrowserDialog())
-            {
-                // Mostra a janela de escolha do directorio
-                DialogResult res = dirDialog.ShowDialog();
-                if (res == DialogResult.OK)
-                {
-                    // Como o utilizador carregou no OK, o directorio escolhido pode ser acedido da seguinte forma:
-                    string directorio = dirDialog.SelectedPath;
-                    textBox1.Text = directorio;
-                }
-            }
-        }
-        private void button2_Click_1(object sender, EventArgs e)
+        private void btnAtualiza_Click(object sender, EventArgs e)
         {
             // Define os valores mínimos e máximos para a barra de progresso
             progressBar1.Minimum = 0;
             totalArquivos = ContaArquivos(ORIGEM);
             progressBar1.Maximum = totalArquivos;
-            // Inicia a cópia do arquivo em um thread separado
             if (progressBar1.Value != progressBar1.Minimum)
                 progressBar1.Value = progressBar1.Minimum;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(DoCopy);
-            worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
-            worker.WorkerReportsProgress = true;
-            worker.RunWorkerAsync();
+            if (comboBox1.SelectedIndex == 0)
+            {
+                MessageBox.Show("Porfavor selecione um disco");
+            }
+            else
+            {
+                // Inicia a cópia do arquivo em um thread separado
+                btnAtualiza.Enabled = false;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += new DoWorkEventHandler(DoCopy);
+                worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
+                worker.WorkerReportsProgress = true;
+                worker.RunWorkerAsync();
+            }
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
-            string destino = textBox1.Text;
+            string destino = $@"{penLetra}DCS";
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
             // Atualiza o progresso para 100%
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(totalArquivos);
-            MessageBox.Show("Cópia feita com sucesso");            
+            MessageBox.Show("Cópia feita com sucesso");
         }
         public int ContaArquivos(string sourceDir)
         {
@@ -71,13 +66,8 @@ namespace Atualiza_Pendrive
             // Copia os arquivos da pasta de origem para a pasta de destino
             foreach (FileInfo fi in diSource.GetFiles())
             {
-                Invoke(new Action(() =>
-                {
-                    progressBar1.Value += 1;
-                    label2.Text = "Copiando : " + fi.Name;
-                }));
+                Invoke(new Action(() => { progressBar1.Value += 1; label2.Text = "Copiando : " + fi.Name; }));
                 if (!File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
-
                 {
                     if (File.Exists(Path.Combine(diTarget.FullName, fi.Name)))
                     {
@@ -107,11 +97,38 @@ namespace Atualiza_Pendrive
             if (progressBar1.Value == progressBar1.Maximum)
             {
                 label2.Text = "Finalizado";
+                btnAtualiza.Enabled = true;
             }
         }
         private void progressBar1_Click(object sender, EventArgs e)
         {
+
+        }
+        private void carregaDiscos()
+        {
+            comboBox1.Items.Insert(0, "Selecione seu Pendrive");
+            comboBox1.SelectedIndex = 0;
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            foreach (DriveInfo drive in drives)
+            {
+                string driveLabel = $"{drive.Name} {drive.VolumeLabel}";
+                comboBox1.Items.Add(driveLabel);
+            }
+        }           
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            carregaDiscos();
+        }
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            penLetra = comboBox1.Text.Substring(0, 3);
+        }
+        private void btnRecarregadiscos_Click(object sender, EventArgs e)
+        {
+            comboBox1.Items.Clear();
+            carregaDiscos();
         }
     }
 }
+
 
