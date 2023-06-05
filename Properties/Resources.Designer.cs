@@ -63,49 +63,9 @@ namespace Atualiza_Pendrive.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap astronaut_and_meteors_in_purple_sky_wallpaper_1920x1080_48 {
-            get {
-                object obj = ResourceManager.GetObject("astronaut-and-meteors-in-purple-sky-wallpaper-1920x1080_48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap recarregar {
-            get {
-                object obj = ResourceManager.GetObject("recarregar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap recarregar_20_x_20_ {
             get {
                 object obj = ResourceManager.GetObject("recarregar 20 x 20 ", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap recarregar_30_x_30_ {
-            get {
-                object obj = ResourceManager.GetObject("recarregar 30 x 30 ", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap recarregar_resized {
-            get {
-                object obj = ResourceManager.GetObject("recarregar_resized", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

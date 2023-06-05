@@ -21,12 +21,12 @@ namespace Atualiza_Pendrive
             progressBar1.Maximum = totalArquivos;
             if (progressBar1.Value != progressBar1.Minimum)
                 progressBar1.Value = progressBar1.Minimum;
-            if (comboBox1.SelectedIndex == 0)
+            if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex == 1)
             {
-                MessageBox.Show("Porfavor selecione um disco");
+                MessageBox.Show("Porfavor selecione seu Pendrive","Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);                
             }
             else
-            {
+            {   
                 // Inicia a cópia do arquivo em um thread separado
                 btnAtualiza.Enabled = false;
                 BackgroundWorker worker = new BackgroundWorker();
@@ -38,7 +38,7 @@ namespace Atualiza_Pendrive
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
-            string destino = $@"{penLetra}DCS";
+            string destino = $@"{penLetra}DCS";            
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
             // Atualiza o progresso para 100%
@@ -59,10 +59,8 @@ namespace Atualiza_Pendrive
             DirectoryInfo diSource = new DirectoryInfo(sourceDir);
             DirectoryInfo diTarget = new DirectoryInfo(targetDir);
             // Cria a pasta de destino se ela não existir
-            if (!diTarget.Exists)
-            {
-                diTarget.Create();
-            }
+            if (!diTarget.Exists)                        
+                   diTarget.Create();
             // Copia os arquivos da pasta de origem para a pasta de destino
             foreach (FileInfo fi in diSource.GetFiles())
             {
@@ -114,7 +112,7 @@ namespace Atualiza_Pendrive
                 string driveLabel = $"{drive.Name} {drive.VolumeLabel}";
                 comboBox1.Items.Add(driveLabel);
             }
-        }           
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             carregaDiscos();
