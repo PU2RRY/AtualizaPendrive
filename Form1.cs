@@ -7,11 +7,38 @@ namespace Atualiza_Pendrive
     {
         private const string ORIGEM = @"\\digo\d\DCS";
         private int totalArquivos;
-        private string pendrive;
-        private string penLetra;
+        public string penLetra;
+        private string destino;
         public Form1()
         {
             InitializeComponent();
+        }
+        private void carregaDiscos()
+        {
+            comboBox1.Items.Clear();
+            comboBox1.Items.Insert(0, "Selecione seu Pendrive");
+            comboBox1.SelectedIndex = 0;
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            foreach (DriveInfo drive in drives)
+            {
+                string driveLabel = $"{drive.Name} {drive.VolumeLabel}";
+                comboBox1.Items.Add(driveLabel);
+            }
+            comboBox1.Items.RemoveAt(1);
+            comboBox1.Refresh();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            carregaDiscos();
+        }
+        private void btnRecarregadiscos_Click(object sender, EventArgs e)
+        {
+            carregaDiscos();
+        }
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            penLetra = comboBox1.Text.Substring(0, 3);
+            destino = $@"{penLetra}DCS";
         }
         private void btnAtualiza_Click(object sender, EventArgs e)
         {
@@ -21,24 +48,49 @@ namespace Atualiza_Pendrive
             progressBar1.Maximum = totalArquivos;
             if (progressBar1.Value != progressBar1.Minimum)
                 progressBar1.Value = progressBar1.Minimum;
-            if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex == 1)
+            //comboBox1. remover o disco C do combobox
+            if (comboBox1.SelectedIndex == 0)
             {
-                MessageBox.Show("Porfavor selecione seu Pendrive","Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);                
+                MessageBox.Show("Porfavor selecione seu Pendrive", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
-            {   
-                // Inicia a cópia do arquivo em um thread separado
-                btnAtualiza.Enabled = false;
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += new DoWorkEventHandler(DoCopy);
-                worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
-                worker.WorkerReportsProgress = true;
-                worker.RunWorkerAsync();
+            {
+                if (!Directory.Exists(destino))
+                {
+                    DialogResult result = MessageBox.Show("Pasta DCS não encontrada, deseja criá-la ?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        copia();
+                    }
+                    else
+                        return;
+                }
+                copia();
             }
+        }
+        private void UpdateProgress(object sender, ProgressChangedEventArgs e)
+        {
+            // Atualiza o valor da barra de progresso
+            progressBar1.Value = e.ProgressPercentage;
+            if (progressBar1.Value == progressBar1.Maximum)
+            {
+                label2.Text = "Finalizado";
+                btnAtualiza.Enabled = true;
+            }
+        }
+        private void copia()
+        {
+            // Inicia a cópia do arquivo em um thread separado
+            btnAtualiza.Enabled = false;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(DoCopy);
+            worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
+            worker.WorkerReportsProgress = true;
+            worker.RunWorkerAsync();
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
-            string destino = $@"{penLetra}DCS";            
+                // string destino = $@"{penLetra}DCS";
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
             // Atualiza o progresso para 100%
@@ -59,8 +111,8 @@ namespace Atualiza_Pendrive
             DirectoryInfo diSource = new DirectoryInfo(sourceDir);
             DirectoryInfo diTarget = new DirectoryInfo(targetDir);
             // Cria a pasta de destino se ela não existir
-            if (!diTarget.Exists)                        
-                   diTarget.Create();
+            if (!diTarget.Exists)
+                diTarget.Create();
             // Copia os arquivos da pasta de origem para a pasta de destino
             foreach (FileInfo fi in diSource.GetFiles())
             {
@@ -88,45 +140,5 @@ namespace Atualiza_Pendrive
                 CopyDirectory(di.FullName, Path.Combine(diTarget.FullName, di.Name));
             }
         }
-        private void UpdateProgress(object sender, ProgressChangedEventArgs e)
-        {
-            // Atualiza o valor da barra de progresso
-            progressBar1.Value = e.ProgressPercentage;
-            if (progressBar1.Value == progressBar1.Maximum)
-            {
-                label2.Text = "Finalizado";
-                btnAtualiza.Enabled = true;
-            }
-        }
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void carregaDiscos()
-        {
-            comboBox1.Items.Insert(0, "Selecione seu Pendrive");
-            comboBox1.SelectedIndex = 0;
-            DriveInfo[] drives = DriveInfo.GetDrives();
-            foreach (DriveInfo drive in drives)
-            {
-                string driveLabel = $"{drive.Name} {drive.VolumeLabel}";
-                comboBox1.Items.Add(driveLabel);
-            }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            carregaDiscos();
-        }
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-            penLetra = comboBox1.Text.Substring(0, 3);
-        }
-        private void btnRecarregadiscos_Click(object sender, EventArgs e)
-        {
-            comboBox1.Items.Clear();
-            carregaDiscos();
-        }
     }
 }
-
-

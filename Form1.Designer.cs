@@ -43,7 +43,6 @@
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(282, 23);
             progressBar1.TabIndex = 2;
-            progressBar1.Click += progressBar1_Click;
             // 
             // label1
             // 

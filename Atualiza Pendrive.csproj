@@ -8,8 +8,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>pendrive.ico</ApplicationIcon>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.1</AssemblyVersion>
+    <FileVersion>1.1.0.1</FileVersion>
     <PackageReleaseNotes>versão final</PackageReleaseNotes>
     <PackageTags>Rodrigo Dev</PackageTags>
     <Description>Este aplicativo serve para os técnicos da DCS atualizarem seus Pendrives</Description>
