@@ -9,6 +9,7 @@ namespace Atualiza_Pendrive
         private int totalArquivos;
         public string penLetra;
         private string destino;
+        public string result;
         public Form1()
         {
             InitializeComponent();
@@ -75,28 +76,29 @@ namespace Atualiza_Pendrive
             if (progressBar1.Value == progressBar1.Maximum)
             {
                 label2.Text = "Finalizado";
+                MessageBox.Show("Cópia feita com sucesso");
                 btnAtualiza.Enabled = true;
             }
         }
         private void copia()
         {
+            
             // Inicia a cópia do arquivo em um thread separado
             btnAtualiza.Enabled = false;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(DoCopy);
             worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
             worker.WorkerReportsProgress = true;
-            worker.RunWorkerAsync();
+            worker.RunWorkerAsync();       
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
-                // string destino = $@"{penLetra}DCS";
             // Copia a pasta de origem para o pendrive
             CopyDirectory(ORIGEM, destino);
             // Atualiza o progresso para 100%
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(totalArquivos);
-            MessageBox.Show("Cópia feita com sucesso");
+            //MessageBox.Show("Cópia feita com sucesso");
         }
         public int ContaArquivos(string sourceDir)
         {
