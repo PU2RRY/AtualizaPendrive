@@ -82,14 +82,14 @@ namespace Atualiza_Pendrive
         }
         private void copia()
         {
-            
+
             // Inicia a cópia do arquivo em um thread separado
             btnAtualiza.Enabled = false;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(DoCopy);
             worker.ProgressChanged += new ProgressChangedEventHandler(UpdateProgress);
             worker.WorkerReportsProgress = true;
-            worker.RunWorkerAsync();       
+            worker.RunWorkerAsync();
         }
         public void DoCopy(object sender, DoWorkEventArgs e)
         {
